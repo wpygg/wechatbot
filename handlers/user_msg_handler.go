@@ -1,10 +1,8 @@
 package handlers
 
 import (
-	"github.com/869413421/wechatbot/gtp"
 	"github.com/eatmoreapple/openwechat"
 	"log"
-	"strings"
 )
 
 var _ MessageHandlerInterface = (*UserMessageHandler)(nil)
@@ -32,25 +30,25 @@ func (g *UserMessageHandler) ReplyText(msg *openwechat.Message) error {
 	sender, err := msg.Sender()
 	log.Printf("Received User %v Text Msg : %v", sender.NickName, msg.Content)
 
-	// 向GPT发起请求
-	requestText := strings.TrimSpace(msg.Content)
-	requestText = strings.Trim(msg.Content, "\n")
-	reply, err := gtp.Completions(requestText)
-	if err != nil {
-		log.Printf("gtp request error: %v \n", err)
-		msg.ReplyText("机器人神了，我一会发现了就去修。")
-		return err
-	}
-	if reply == "" {
-		return nil
-	}
-
-	// 回复用户
-	reply = strings.TrimSpace(reply)
-	reply = strings.Trim(reply, "\n")
-	_, err = msg.ReplyText(reply)
-	if err != nil {
-		log.Printf("response user error: %v \n", err)
-	}
+	//// 向GPT发起请求
+	//requestText := strings.TrimSpace(msg.Content)
+	//requestText = strings.Trim(msg.Content, "\n")
+	//reply, err := gtp.Completions(requestText)
+	//if err != nil {
+	//	log.Printf("gtp request error: %v \n", err)
+	//	msg.ReplyText("机器人神了，我一会发现了就去修。")
+	//	return err
+	//}
+	//if reply == "" {
+	//	return nil
+	//}
+	//
+	//// 回复用户
+	//reply = strings.TrimSpace(reply)
+	//reply = strings.Trim(reply, "\n")
+	//_, err = msg.ReplyText(reply)
+	//if err != nil {
+	//	log.Printf("response user error: %v \n", err)
+	//}
 	return err
 }
